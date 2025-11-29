@@ -13,6 +13,7 @@
     "be:start": "pnpm --filter @project/back-end start",
     "be:build": "pnpm --filter @project/back-end build",
     "be:dev": "pnpm --filter @project/back-end start:dev:wp",
+    "be:migrate": "pnpm --filter @project/back-end migrate",
     "ui:add": "pnpm --filter @common/ui add-component",
     "lint": "biome check --fix",
     "prepare": "husky"
@@ -26,8 +27,8 @@
     "lint-staged": "^16.2.7"
   },
   "lint-staged": {
-    "*.{js,ts,tsx,md,css,json}": [
-      "pnpm biome check"
+    "*.{js,ts,tsx,md,css,}": [
+      "pnpm biome check --no-errors-on-unmatched"
     ]
   }
 }
