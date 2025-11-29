@@ -2,6 +2,9 @@
 
 A full-stack TypeScript monorepo template featuring NestJS back-end, Next.js front-end, and shared packages for type-safe communication between services.
 
+## NOTICE
+This repo is still in making, and the README is inaccurate. Use at your own risk until stable.
+
 ## Tech Stack
 
 | Layer         | Technology                                 |
