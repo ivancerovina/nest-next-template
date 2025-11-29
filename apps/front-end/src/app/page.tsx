@@ -1,4 +1,3 @@
-import { $schema } from "@common/communication";
 import Image from "next/image";
 
 export default function Home() {

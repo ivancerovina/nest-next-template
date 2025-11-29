@@ -1,8 +1,6 @@
-const start = Date.now();
-
-const { spawn } = require("child_process");
-const fs = require("fs");
-const path = require("path");
+const { spawn } = require("node:child_process");
+const fs = require("node:fs");
+const path = require("node:path");
 
 function validateFile(fileName) {
   if (!fileName.endsWith(".ts") && !fileName.endsWith(".tsx")) {

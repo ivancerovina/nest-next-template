@@ -22,18 +22,10 @@
     "strictBindCallApply": false,
     "noFallthroughCasesInSwitch": false,
     "paths": {
-      "@/auth": [
-        "libs/auth/src"
-      ],
-      "@/auth/*": [
-        "libs/auth/src/*"
-      ],
-      "@/database": [
-        "libs/database/src"
-      ],
-      "@/database/*": [
-        "libs/database/src/*"
-      ]
+      "@/auth": ["libs/auth/src"],
+      "@/auth/*": ["libs/auth/src/*"],
+      "@/database": ["libs/database/src"],
+      "@/database/*": ["libs/database/src/*"]
     }
   }
 }

@@ -2,6 +2,9 @@
   "name": "@project/core",
   "version": "1.0.0",
   "description": "Core package for the project",
+  "engines": {
+    "node": ">=22"
+  },
   "keywords": [],
   "scripts": {
     "fe:start": "pnpm --filter @project/front-end start",
@@ -10,12 +13,21 @@
     "be:start": "pnpm --filter @project/back-end start",
     "be:build": "pnpm --filter @project/back-end build",
     "be:dev": "pnpm --filter @project/back-end start:dev:wp",
-    "ui:add": "pnpm --filter @common/ui add-component"
+    "ui:add": "pnpm --filter @common/ui add-component",
+    "lint": "biome check --fix",
+    "prepare": "husky"
   },
   "author": "Ivan Cerovina",
   "license": "ISC",
   "packageManager": "pnpm@10.24.0+sha512.01ff8ae71b4419903b65c60fb2dc9d34cf8bb6e06d03bde112ef38f7a34d6904c424ba66bea5cdcf12890230bf39f9580473140ed9c946fef328b6e5238a345a",
   "devDependencies": {
-    "@biomejs/biome": "2.2.0"
+    "@biomejs/biome": "2.2.0",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.2.7"
+  },
+  "lint-staged": {
+    "*.{js,ts,tsx,md,css}": [
+      "pnpm biome check"
+    ]
   }
 }

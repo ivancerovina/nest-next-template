@@ -1,8 +1,8 @@
 {
   "$schema": "https://biomejs.dev/schemas/2.2.0/schema.json",
-  "extends": ["../../biome.json"],
+  "extends": "//",
   "files": {
-    "includes": ["**", "!node_modules", "!dist", "!build"]
+    "includes": ["**", "!node_modules", "!dist", "!build", "!migrations"]
   },
   "javascript": {
     "parser": {
