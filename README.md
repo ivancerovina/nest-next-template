@@ -3,6 +3,7 @@
 A full-stack TypeScript monorepo template featuring NestJS back-end, Next.js front-end, and shared packages for type-safe communication between services.
 
 ## NOTICE
+
 This repo is still in making, and the README is inaccurate. Use at your own risk until stable.
 
 ## Tech Stack
@@ -61,13 +62,13 @@ pnpm fe:dev
 
 #### Root Level
 
-| Command         | Description                                 |
-| --------------- | ------------------------------------------- |
-| `pnpm fe:dev`   | Start frontend development server           |
-| `pnpm fe:build` | Build frontend for production               |
-| `pnpm fe:start` | Start frontend production server            |
-| `pnpm be:dev`   | Start backend with hot reload (webpack HMR) |
-| `pnpm be:build` | Build backend for production                |
+| Command           | Description                                 |
+| ----------------- | ------------------------------------------- |
+| `pnpm fe:dev`     | Start frontend development server           |
+| `pnpm fe:build`   | Build frontend for production               |
+| `pnpm fe:start`   | Start frontend production server            |
+| `pnpm be:dev`     | Start backend with hot reload (webpack HMR) |
+| `pnpm be:build`   | Build backend for production                |
 | `pnpm be:start`   | Start backend production server             |
 | `pnpm be:migrate` | Run database migrations                     |
 | `pnpm ui:add`     | Add new shadcn/ui component                 |
@@ -114,6 +115,7 @@ pnpm be:migrate up
 ```
 
 To create a new migration, run the following command:
+
 ```bash
 pnpm be:migrate create [...options] <name>
 ```
@@ -135,6 +137,7 @@ pnpm fe:start
 ```
 
 ### Using docker (production)
+
 ```bash
 docker compose -f docker-compose.prod.yml up
 ```
@@ -205,11 +208,13 @@ This project uses [Biome](https://biomejs.dev/) for linting and formatting:
 ## Plans
 
 - [ ] Docker for development
-- [ ] Docker for production
+- [x] Docker for production
 - [ ] CI/CD pipeline
-- [ ] API documentation (Swagger/OpenAPI)
-- [ ] Authentication improvements (JWT, OAuth)
-- [ ] Testing coverage improvements
+- [ ] Auto-generated API documentation with a documentation site
+- [ ] Testing coverage
+- [ ] Zod translation system
+- [ ] Integrate Passport.js for authentication
+-
 
 ## License
 
