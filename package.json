@@ -27,8 +27,8 @@
     "lint-staged": "^16.2.7"
   },
   "lint-staged": {
-    "*.{js,ts,tsx,md,css,}": [
-      "pnpm biome check --no-errors-on-unmatched"
+    "*.{js,ts,tsx,md,css}": [
+      "pnpm lint --no-errors-on-unmatched"
     ]
   }
 }
