@@ -1,2 +1,3 @@
 #!/bin/sh
 pnpm --filter @project/back-end test
+pnpm lint
