@@ -2,8 +2,14 @@ const { spawn } = require("node:child_process");
 const fs = require("node:fs");
 const path = require("node:path");
 
-function validateFile(fileName) {
-  if (!fileName.endsWith(".ts") && !fileName.endsWith(".tsx")) {
+function validateFile(fullPath) {
+  const fileName = path.basename(fullPath);
+
+  if (fs.statSync(fullPath).isDirectory()) {
+    return true;
+  }
+
+  if (!fullPath.endsWith(".ts") && !fullPath.endsWith(".tsx")) {
     return false;
   }
 
@@ -49,11 +55,13 @@ function generateExports() {
     let exports = "";
 
     for (const file of files) {
-      if (!validateFile(file)) {
+      if (!validateFile(path.join(baseDir, dir, file))) {
         continue;
       }
 
-      const fileName = file.slice(0, file.lastIndexOf("."));
+      const fileName = file.includes(".")
+        ? file.slice(0, file.lastIndexOf("."))
+        : file;
 
       exports += `export * from "./${fileName}";\n`;
     }
