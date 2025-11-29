@@ -1,17 +1,9 @@
-import { $schema } from "@common/communication";
 import { Module } from "@nestjs/common";
 import { ConfigModule, type ConfigType } from "@nestjs/config";
 import { PostgresDialect } from "kysely";
 import { Pool } from "pg";
 import { DatabaseModule } from "@/database";
 import { databaseConfig } from "./configs";
-
-console.info(
-  $schema.routes.login.body.parse({
-    email: "ivancerovina@gmail.com",
-    password: "TestPassword1234$$",
-  }),
-);
 
 @Module({
   imports: [
