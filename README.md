@@ -11,25 +11,6 @@ A full-stack TypeScript monorepo template featuring NestJS back-end, Next.js fro
 | **Shared**    | Zod schemas, shadcn/ui components          |
 | **Tooling**   | pnpm workspaces, Biome, TypeScript 5       |
 
-## Project Structure
-
-```
-├── apps/
-│   ├── back-end/          # NestJS API server
-│   │   ├── src/
-│   │   │   ├── configs/   # Database and app configuration
-│   │   │   └── features/  # Feature modules (auth, users)
-│   │   ├── libs/          # Internal libraries (database)
-│   │   └── migrations/    # Kysely database migrations
-│   └── front-end/         # Next.js application
-│       └── src/app/       # App Router pages
-├── packages/
-│   ├── communication/     # Shared Zod schemas and API contracts
-│   └── ui/                # Shared React components (shadcn/ui)
-├── biome.json             # Linting and formatting configuration
-└── pnpm-workspace.yaml    # Workspace configuration
-```
-
 ## Prerequisites
 
 - **Node.js** >= 22
@@ -48,8 +29,8 @@ pnpm install
 
 Create a `.env` file in the root directory:
 
-```env
-DATABASE_URL=postgresql://user:password@localhost:5432/your_database
+```sh
+cp .env.example .env
 ```
 
 ### 3. Database Setup
@@ -117,10 +98,7 @@ This project uses [shadcn/ui](https://ui.shadcn.com/) for the component library.
 
 ```bash
 # From root directory
-pnpm ui:add
-
-# Or specify component name
-pnpm --filter @project/ui add-component button
+pnpm ui:add button
 ```
 
 ### Database Migrations
@@ -129,11 +107,13 @@ Migrations are managed with Kysely. Migration files are located in `apps/back-en
 
 ```bash
 # Run pending migrations
-pnpm --filter back-end migrate
+pnpm be:migrate up
 ```
 
-To create a new migration, add a file in `apps/back-end/migrations/` following the naming convention:
-`YYYYMMDDTHHMMSS-description.ts`
+To create a new migration, run the following command:
+```bash
+pnpm be:migrate create [...options] <name>
+```
 
 ## Building for Production
 
@@ -151,27 +131,10 @@ pnpm fe:build
 pnpm fe:start
 ```
 
-### Full Build
-
+### Using docker (production)
 ```bash
-# Build all packages and apps
-pnpm -r build
+docker compose -f docker-compose.prod.yml up
 ```
-
-## Environment Variables
-
-### Backend
-
-| Variable       | Description                  | Required |
-| -------------- | ---------------------------- | -------- |
-| `DATABASE_URL` | PostgreSQL connection string | Yes      |
-| `PORT`         | Server port (default: 3000)  | No       |
-
-### Frontend
-
-| Variable              | Description     | Required |
-| --------------------- | --------------- | -------- |
-| `NEXT_PUBLIC_API_URL` | Backend API URL | No       |
 
 ## Architecture
 
@@ -185,15 +148,17 @@ Type-safe API contracts using Zod schemas. Defines request/response types shared
 import { $schema } from "@common/communication";
 
 // Access route definitions
-$schema.routes.login; // { method, path, body, query, response }
+$schema.routes.login; // { path, body, query, response }
 ```
 
-#### `@project/ui`
+#### `@common/ui`
 
 Shared React component library built on shadcn/ui with Radix UI primitives.
 
+This is useful if you have multiple front-ends.
+
 ```typescript
-import { Button } from "@project/ui";
+import { Button } from "@common/ui";
 ```
 
 ### Backend Architecture
@@ -233,17 +198,6 @@ pnpm --filter back-end test:e2e
 ## Code Quality
 
 This project uses [Biome](https://biomejs.dev/) for linting and formatting:
-
-```bash
-# Check all files
-pnpm biome check .
-
-# Format all files
-pnpm biome format . --write
-
-# Lint and fix
-pnpm biome lint . --write
-```
 
 ## Plans
 
