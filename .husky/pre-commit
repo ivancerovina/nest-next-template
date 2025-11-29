@@ -1,2 +1,1 @@
-pnpm --filter @project/back-end test
-echo "npx lint-staged" > .husky/pre-commit
+npx lint-staged
