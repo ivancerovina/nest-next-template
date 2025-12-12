@@ -1,5 +1,5 @@
 {
-  "name": "@project/back-end",
+  "name": "@frogstep/back-end",
   "version": "0.0.1",
   "description": "",
   "author": "",
@@ -7,14 +7,11 @@
   "license": "UNLICENSED",
   "scripts": {
     "build": "nest build",
-    "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\" \"libs/**/*.ts\"",
     "start": "nest start",
     "start:dev": "nest start --watch",
-    "start:dev:wp": "nest build --webpack --webpackPath webpack-hmr.config.js --watch",
+    "start:dev:wp": "nest build --webpack --webpackPath webpack-hmr.config.cjs --watch",
     "start:debug": "nest start --debug --watch",
     "start:prod": "node dist/main",
-    "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
-    "migrate": "node -r esbuild-register scripts/migrate.ts",
     "test": "jest",
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage",
@@ -22,40 +19,45 @@
     "test:e2e": "jest --config ./test/jest-e2e.json"
   },
   "dependencies": {
-    "@common/communication": "workspace:*",
+    "@common/plugin-sdk": "workspace:*",
+    "@frogstep/example-plugin": "workspace:*",
     "@nestjs/common": "^11.0.1",
     "@nestjs/config": "^4.0.2",
     "@nestjs/core": "^11.0.1",
     "@nestjs/passport": "^11.0.5",
     "@nestjs/platform-express": "^11.0.1",
+    "@nestjs/platform-socket.io": "^11.1.9",
+    "@nestjs/throttler": "^6.4.0",
+    "@nestjs/websockets": "^11.1.9",
+    "argon2": "^0.44.0",
+    "bcrypt": "^6.0.0",
+    "connect-redis": "^9.0.0",
+    "express-session": "^1.18.2",
     "kysely": "^0.28.8",
     "passport": "^0.7.0",
     "passport-local": "^1.0.0",
     "pg": "^8.16.3",
+    "redis": "^5.10.0",
     "reflect-metadata": "^0.2.2",
-    "rxjs": "^7.8.1"
+    "rxjs": "^7.8.1",
+    "zod": "^4.1.13"
   },
   "devDependencies": {
-    "@eslint/eslintrc": "^3.2.0",
-    "@eslint/js": "^9.18.0",
     "@nestjs/cli": "^11.0.0",
     "@nestjs/schematics": "^11.0.0",
     "@nestjs/testing": "^11.0.1",
+    "@types/bcrypt": "^6.0.0",
     "@types/express": "^5.0.0",
+    "@types/express-session": "^1.18.2",
     "@types/jest": "^30.0.0",
     "@types/node": "^22.10.7",
     "@types/passport-local": "^1.0.38",
     "@types/pg": "^8.15.6",
     "@types/supertest": "^6.0.2",
     "esbuild-register": "^3.6.0",
-    "eslint": "^9.18.0",
-    "eslint-config-prettier": "^10.0.1",
-    "eslint-plugin-prettier": "^5.2.2",
-    "globals": "^16.0.0",
     "jest": "^30.0.0",
     "kysely-codegen": "^0.19.0",
     "kysely-migration-cli": "^0.4.2",
-    "prettier": "^3.4.2",
     "run-script-webpack-plugin": "^0.2.3",
     "source-map-support": "^0.5.21",
     "supertest": "^7.0.0",
@@ -63,9 +65,9 @@
     "ts-loader": "^9.5.2",
     "ts-node": "^10.9.2",
     "tsconfig-paths": "^4.2.0",
-    "typescript-eslint": "^8.20.0",
     "webpack": "^5.103.0",
-    "webpack-node-externals": "^3.0.0"
+    "webpack-node-externals": "^3.0.0",
+    "webpack-virtual-modules": "^0.6.2"
   },
   "jest": {
     "moduleFileExtensions": [
@@ -93,9 +95,7 @@
       "<rootDir>/libs/"
     ],
     "moduleNameMapper": {
-      "^@/auth(|/.*)$": "<rootDir>/libs/auth/src/$1",
-      "^@/core(|/.*)$": "<rootDir>/libs/core/src/$1",
-      "^@/database(|/.*)$": "<rootDir>/libs/database/src/$1"
+      "^@/core(|/.*)$": "<rootDir>/libs/core/src/$1"
     }
   }
 }

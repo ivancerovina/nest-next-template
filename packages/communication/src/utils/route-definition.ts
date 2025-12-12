@@ -1,4 +1,5 @@
 import { z } from "zod";
+import type { DotPathsLeafOnly } from "../util-types";
 
 /**
  * Base HTTP error codes that are automatically included in all route definitions.
@@ -22,17 +23,6 @@ const BASE_ERROR_CODES = [
  * @see {BASE_ERROR_CODES}
  */
 const BAD_REQUEST_CODE = "BAD_REQUEST" as const;
-
-/**
- * Schema for validation issues returned with BAD_REQUEST errors.
- * Each issue contains a path (field name) and a human-readable message.
- */
-export const badRequestIssuesSchema = z.array(
-  z.object({
-    path: z.string().min(1).max(255),
-    message: z.string().min(1).max(255),
-  }),
-);
 
 // biome-ignore lint/suspicious/noExplicitAny: Required for generic path function signature - the actual parameter types are inferred from usage
 type ParamFunc = (...args: any[]) => string;
@@ -89,9 +79,13 @@ type TRouteDefinitionParams<P extends ParamFunc, B, Q, D, E extends string> = {
  * });
  * ```
  */
-export function $route<P extends ParamFunc, B, Q, D, E extends string>(
-  params: TRouteDefinitionParams<P, B, Q, D, E>,
-) {
+export function $route<
+  P extends ParamFunc,
+  B extends Record<string, any>,
+  Q,
+  D,
+  E extends string,
+>(params: TRouteDefinitionParams<P, B, Q, D, E>) {
   const { path, body, data, query, errorCodes } = params;
 
   /** Schema for error messages, limited to 255 characters */
@@ -109,6 +103,10 @@ export function $route<P extends ParamFunc, B, Q, D, E extends string>(
     data,
   });
 
+  type SchemaForB = z.ZodType<
+    Partial<Record<DotPathsLeafOnly<Exclude<B, null>>, string>>
+  >;
+
   /** Schema for error responses, with special handling for BAD_REQUEST validation errors */
   const error = z.object({
     success: z.literal(false),
@@ -116,7 +114,10 @@ export function $route<P extends ParamFunc, B, Q, D, E extends string>(
       z.object({
         code: z.literal(BAD_REQUEST_CODE),
         message: errorMessageSchema,
-        issues: badRequestIssuesSchema.optional(),
+        issues:
+          data !== null
+            ? (z.record(z.string(), z.string()) as SchemaForB)
+            : z.null(),
       }),
       z.object({
         code: errorCodesWithoutBadRequestSchema,

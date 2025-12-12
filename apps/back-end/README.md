@@ -1,4 +1,4 @@
-# @project/back-end
+# @frogstep/back-end
 
 NestJS API server with Kysely for type-safe database queries.
 

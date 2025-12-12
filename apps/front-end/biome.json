@@ -3,17 +3,13 @@
   "root": false,
   "extends": "//",
   "files": {
-    "includes": ["**", "!node_modules", "!.next", "!dist", "!build"]
+    "includes": ["**", "!node_modules", "!dist", "!build", "!migrations"]
   },
   "linter": {
     "rules": {
       "suspicious": {
         "noUnknownAtRules": "off"
       }
-    },
-    "domains": {
-      "next": "recommended",
-      "react": "recommended"
     }
   }
 }

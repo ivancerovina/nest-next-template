@@ -5,25 +5,17 @@
   "defaultLibraryPrefix": "@",
   "compilerOptions": {
     "deleteOutDir": true,
-    "webpack": true
+    "webpack": true,
+    "webpackConfigPath": "webpack.config.cjs"
   },
   "projects": {
-    "auth": {
+    "core": {
       "type": "library",
-      "root": "libs/auth",
+      "root": "libs/core",
       "entryFile": "index",
-      "sourceRoot": "libs/auth/src",
+      "sourceRoot": "libs/core/src",
       "compilerOptions": {
-        "tsConfigPath": "libs/auth/tsconfig.lib.json"
-      }
-    },
-    "database": {
-      "type": "library",
-      "root": "libs/database",
-      "entryFile": "index",
-      "sourceRoot": "libs/database/src",
-      "compilerOptions": {
-        "tsConfigPath": "libs/database/tsconfig.lib.json"
+        "tsConfigPath": "libs/core/tsconfig.lib.json"
       }
     }
   }

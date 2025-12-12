@@ -8,7 +8,6 @@
   },
   "moduleNameMapper": {
     "^@/auth(|/.*)$": "<rootDir>/../libs/auth/src/$1",
-    "^@/core(|/.*)$": "<rootDir>/../libs/core/src/$1",
-    "^@/database(|/.*)$": "<rootDir>/../libs/database/src/$1"
+    "^@/core(|/.*)$": "<rootDir>/../libs/core/src/$1"
   }
 }

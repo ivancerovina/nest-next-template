@@ -25,6 +25,25 @@ services:
     networks:
       - app-network
 
+  redis:
+    image: redis:7-alpine
+    restart: unless-stopped
+    command: redis-server --appendonly yes
+    volumes:
+      - redis_data:/data
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "5"
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - app-network
+
   migrations:
     build:
       context: .
@@ -53,6 +72,8 @@ services:
       NODE_ENV: production
       PORT: 3000
       DATABASE_URL: postgresql://${POSTGRES_USER:-app}:${POSTGRES_PASSWORD:-app}@postgres:5432/${POSTGRES_DB:-app}
+      REDIS_URL: redis://redis:6379
+      SESSION_SECRET: ${SESSION_SECRET}
     logging:
       driver: json-file
       options:
@@ -62,6 +83,8 @@ services:
       - "${BACK_END_PORT:-3000}:3000"
     depends_on:
       postgres:
+        condition: service_healthy
+      redis:
         condition: service_healthy
       migrations:
         condition: service_completed_successfully
@@ -118,6 +141,7 @@ services:
 
 volumes:
   postgres_data:
+  redis_data:
 
 networks:
   app-network:

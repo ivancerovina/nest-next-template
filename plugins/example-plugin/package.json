@@ -1,0 +1,32 @@
+{
+  "name": "@frogstep/example-plugin",
+  "version": "0.0.1",
+  "type": "module",
+  "exports": {
+    "./client": "./src/client/index.tsx",
+    "./server": {
+      "node": "./src/server/index.ts",
+      "browser": null
+    },
+    "./shared": "./src/shared/index.ts"
+  },
+  "frogstep": {
+    "displayName": "Example Plugin"
+  },
+  "dependencies": {
+    "@common/http-client": "workspace:*",
+    "@common/plugin-sdk": "workspace:*",
+    "@common/ui": "workspace:*",
+    "lucide-react": "^0.556.0",
+    "zod": "^4.1.13"
+  },
+  "peerDependencies": {
+    "@nestjs/common": "^11.0.0",
+    "react": "19.2.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "@types/react": "^19",
+    "@types/react-dom": "^19"
+  }
+}
